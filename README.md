@@ -40,6 +40,7 @@ python app.py
 
 - Every other method available in the ``blin1-tool``, including optional arguments,
 - server response should mimic the BlinkControl HTTP server responses,
+- add a way to configure things (ports, prefixes, auth?)
 
 ## License
 

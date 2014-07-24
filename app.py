@@ -1,44 +1,36 @@
 """
 see: https://github.com/todbot/blink1/blob/master/docs/app-url-api.md
 """
+from os.path import basename
 from flask import Flask
+from flask import request
 from flask.ext import restful
 from shell import shell
+
 
 app = Flask(__name__)
 api = restful.Api(app, prefix="/blink1")
 
 
-class SimpleCommandMixin(object):
+class SimpleCommand(restful.Resource):
+    "Simple commands, no specific argument"
+
+    @property
+    def command(self):
+        return str(basename(request.path))
+
     def post(self):
         out = shell('blink1-tool --%s' % self.command)
         print out.output()
         return {'status': 'ok'}
 
-
-class SimpleCommand(SimpleCommandMixin, restful.Resource):
     def get(self):
         return self.post()
 
-    def post(self):
-        return super(SimpleCommand, self).post()
 
-
-class On(SimpleCommand):
-    command = 'on'
-
-
-class Off(SimpleCommand):
-    command = 'off'
-
-
-class Red(SimpleCommand):
-    command = 'red'
-
-
-api.add_resource(On, '/on')
-api.add_resource(Off, '/off')
-api.add_resource(Red, '/red')
+api.add_resource(
+    SimpleCommand,
+    '/on', '/off', '/red')
 
 if __name__ == '__main__':
     app.run(debug=True)
