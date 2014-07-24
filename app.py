@@ -20,19 +20,20 @@ class SimpleCommand(restful.Resource):
         return str(basename(request.path))
 
     def post(self):
-        out = shell('blink1-tool --%s' % self.command)
-        print out.output()
-        return {'status': 'ok'}
+        result = shell('blink1-tool --%s' % self.command)
+        data = {'status': 'ok'}
+        data['output'] = '\n'.join(result.output())
+        return data
 
     def get(self):
         return self.post()
-
 
 api.add_resource(
     SimpleCommand,
     '/on', '/off', '/white',
     '/red', '/green', '/blue',
     '/cyan', '/magenta', '/yellow',
+    '/running', '/list',
 )
 
 if __name__ == '__main__':

@@ -41,6 +41,8 @@ python app.py
 - ``/blink1/cyan``
 - ``/blink1/magenta``
 - ``/blink1/yellow``
+- ``/blink1/running``
+- ``/blink1/list``
 
 ## TODO
 
