@@ -30,7 +30,10 @@ class SimpleCommand(restful.Resource):
 
 api.add_resource(
     SimpleCommand,
-    '/on', '/off', '/red')
+    '/on', '/off', '/white',
+    '/red', '/green', '/blue',
+    '/cyan', '/magenta', '/yellow',
+)
 
 if __name__ == '__main__':
     app.run(debug=True)
