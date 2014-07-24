@@ -43,6 +43,7 @@ python app.py
 - ``/blink1/yellow``
 - ``/blink1/running``
 - ``/blink1/list``
+- ``/blink1/fadeToRGB`` (very simple version)
 
 ## TODO
 

@@ -6,11 +6,11 @@ from flask import Flask
 from flask import request
 from flask.ext import restful
 from shell import shell
+from flask.ext.restful import reqparse
 
 
 app = Flask(__name__)
 api = restful.Api(app, prefix="/blink1")
-
 
 class SimpleCommand(restful.Resource):
     "Simple commands, no specific argument"
@@ -28,6 +28,21 @@ class SimpleCommand(restful.Resource):
     def get(self):
         return self.post()
 
+
+class fadeToRGB(restful.Resource):
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('rgb', type=str)
+        args = parser.parse_args()
+        result = shell('blink1-tool --rgb %s' % args.rgb)
+        data = {'status': 'ok'}
+        data['output'] = '\n'.join(result.output())
+        return data
+
+    def get(self):
+        return self.post()
+
 api.add_resource(
     SimpleCommand,
     '/on', '/off', '/white',
@@ -35,6 +50,8 @@ api.add_resource(
     '/cyan', '/magenta', '/yellow',
     '/running', '/list',
 )
+
+api.add_resource(fadeToRGB, '/fadeToRGB')
 
 if __name__ == '__main__':
     app.run(debug=True)
