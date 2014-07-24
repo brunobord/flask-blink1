@@ -43,7 +43,20 @@ python app.py
 - ``/blink1/yellow``
 - ``/blink1/running``
 - ``/blink1/list``
-- ``/blink1/fadeToRGB`` (very simple version)
+- ``/blink1/fadeToRGB``
+
+### RGB specs
+
+you can pass a RGB color argument to the ``fadeToRGB`` URL like this:
+
+```
+http://localhost:5000/blink1/fadeToRGB?rgb=255,0,255
+http://localhost:5000/blink1/fadeToRGB?rgb=%23FFFF00
+http://localhost:5000/blink1/fadeToRGB?rgb=%23A69
+http://localhost:5000/blink1/fadeToRGB?rgb=cyan
+```
+
+Basically, any known color in the CSS specs would work.
 
 ## TODO
 

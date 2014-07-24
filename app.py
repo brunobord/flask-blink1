@@ -5,12 +5,14 @@ from os.path import basename
 from flask import Flask
 from flask import request
 from flask.ext import restful
-from shell import shell
 from flask.ext.restful import reqparse
+from shell import shell
+import htmlcolor
 
 
 app = Flask(__name__)
 api = restful.Api(app, prefix="/blink1")
+
 
 class SimpleCommand(restful.Resource):
     "Simple commands, no specific argument"
@@ -35,7 +37,9 @@ class fadeToRGB(restful.Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('rgb', type=str)
         args = parser.parse_args()
-        result = shell('blink1-tool --rgb %s' % args.rgb)
+        color_parser = htmlcolor.Parser()
+        color = ','.join(map(str, color_parser.parse(args.rgb)))
+        result = shell('blink1-tool --rgb %s' % color)
         data = {'status': 'ok'}
         data['output'] = '\n'.join(result.output())
         return data
