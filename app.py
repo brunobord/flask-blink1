@@ -11,6 +11,7 @@ import htmlcolor
 
 
 app = Flask(__name__)
+app.config.from_object('config.Config')
 api = restful.Api(app, prefix="/blink1")
 
 
@@ -67,4 +68,8 @@ api.add_resource(
 api.add_resource(fadeToRGB, '/fadeToRGB')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(
+        debug=app.config['DEBUG'],
+        host=app.config['HOST'],
+        port=app.config['PORT'],
+    )

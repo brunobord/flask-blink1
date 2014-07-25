@@ -60,11 +60,20 @@ http://localhost:5000/blink1/fadeToRGB?rgb=cyan
 
 Basically, any known color in the CSS specs would work.
 
+## Configure
+
+By default, the application will run with these settings:
+
+* `DEBUG` = False
+* `HOST` = '127.0.0.1'
+* `PORT` = 8934
+
+Simply copy the `local_settings.sample.py` into `local_settings.py` (or make your own) and adapt it to your needs.
+
 ## TODO
 
 - Every other method available in the ``blin1-tool``, including optional arguments,
 - server response should mimic the BlinkControl HTTP server responses,
-- add a way to configure things (ports, prefixes, auth?)
 
 ## License
 
