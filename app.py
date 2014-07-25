@@ -14,6 +14,16 @@ app = Flask(__name__)
 api = restful.Api(app, prefix="/blink1")
 
 
+def get_color_from_args(rgb):
+    if len(rgb.split(',')) == 3:
+        rgb = map(int, rgb.split(','))
+        if max(rgb) <= 255 and min(rgb) >= 0:
+            return ','.join(map(str, rgb))
+    color_parser = htmlcolor.Parser()
+    color = ','.join(map(str, color_parser.parse(rgb)))
+    return color
+
+
 class SimpleCommand(restful.Resource):
     "Simple commands, no specific argument"
 
@@ -37,8 +47,7 @@ class fadeToRGB(restful.Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('rgb', type=str)
         args = parser.parse_args()
-        color_parser = htmlcolor.Parser()
-        color = ','.join(map(str, color_parser.parse(args.rgb)))
+        color = get_color_from_args(args.rgb)
         result = shell('blink1-tool --rgb %s' % color)
         data = {'status': 'ok'}
         data['output'] = '\n'.join(result.output())

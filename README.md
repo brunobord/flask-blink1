@@ -53,6 +53,8 @@ you can pass a RGB color argument to the ``fadeToRGB`` URL like this:
 http://localhost:5000/blink1/fadeToRGB?rgb=255,0,255
 http://localhost:5000/blink1/fadeToRGB?rgb=%23FFFF00
 http://localhost:5000/blink1/fadeToRGB?rgb=%23A69
+http://localhost:5000/blink1/fadeToRGB?rgb=aaa
+http://localhost:5000/blink1/fadeToRGB?rgb=ab5566
 http://localhost:5000/blink1/fadeToRGB?rgb=cyan
 ```
 
