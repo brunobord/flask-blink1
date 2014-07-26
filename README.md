@@ -1,6 +1,6 @@
-# Flask / Blink1
+# Flask / Blink(1)
 
-As stupid as it sounds, it's a Flask app that mimics the blink1 server.
+As stupid as it sounds, it's a Flask app that mimics the blink(1) server.
 
 ## Why?
 
@@ -8,7 +8,7 @@ As stupid as it sounds, it's a Flask app that mimics the blink1 server.
 
 ## Install
 
-You'll need at least the [blink1-tool binary](https://github.com/todbot/blink1)in your path. I hope that one day I could use the native [Python lib](https://github.com/todbot/blink1/tree/master/python/pypi), but at the moment it's so buggy that I'm helpless.
+You'll need at least the [blink(1)-tool binary](https://github.com/todbot/blink1)in your path. I hope that one day I could use the native [Python lib](https://github.com/todbot/blink1/tree/master/python/pypi), but at the moment it's so buggy that I'm helpless.
 
 Preferrably in a virtualenv, install the requirements with the command:
 
@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-1 - Plug your *blink1 mk2*.
+1 - Plug your *blink(1) mk2*.
 
 2 - Run the server with:
 
@@ -70,9 +70,11 @@ By default, the application will run with these settings:
 
 Simply copy the `local_settings.sample.py` into `local_settings.py` (or make your own) and adapt it to your needs.
 
+If you want to open your blink(1) to the world, you may have to change your host to `"0.0.0.0"` and pick a port that can be reached from the outside world. That way, you can recreate [the famous Big Bang Theory scene](https://www.youtube.com/watch?v=PqFSRwgqgYk).
+
 ## TODO
 
-- Every other method available in the ``blin1-tool``, including optional arguments,
+- Every other method available in the ``blink1-tool``, including optional arguments,
 - server response should mimic the BlinkControl HTTP server responses,
 
 ## License
