@@ -1,28 +1,19 @@
 """
 see: https://github.com/todbot/blink1/blob/master/docs/app-url-api.md
 """
+from __future__ import absolute_import
 from os.path import basename
 from flask import Flask
 from flask import request
 from flask.ext import restful
-from flask.ext.restful import reqparse
 from shell import shell
-import htmlcolor
+
+from parsers import RgbParserMixin
 
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
 api = restful.Api(app, prefix="/blink1")
-
-
-def get_color_from_args(rgb):
-    if len(rgb.split(',')) == 3:
-        rgb = map(int, rgb.split(','))
-        if max(rgb) <= 255 and min(rgb) >= 0:
-            return ','.join(map(str, rgb))
-    color_parser = htmlcolor.Parser()
-    color = ','.join(map(str, color_parser.parse(rgb)))
-    return color
 
 
 class SimpleCommand(restful.Resource):
@@ -42,14 +33,11 @@ class SimpleCommand(restful.Resource):
         return self.post()
 
 
-class fadeToRGB(restful.Resource):
+class fadeToRGB(RgbParserMixin, restful.Resource):
 
     def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('rgb', type=str)
-        args = parser.parse_args()
-        color = get_color_from_args(args.rgb)
-        result = shell('blink1-tool --rgb %s' % color)
+        args = self.parse_args()
+        result = shell('blink1-tool --rgb %s' % args.rgb)
         data = {'status': 'ok'}
         data['output'] = '\n'.join(result.output())
         return data
